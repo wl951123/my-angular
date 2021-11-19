@@ -1,0 +1,27 @@
+<div id="share-box-bg" (click)="cancel($event)">
+  <div class="share-box" (click)="stopPropagation($event)">
+    <div class="select-share">
+      <div class="top-content">
+        <div class="top-title">请选择分享方式</div>
+        <img
+          class="top-img"
+          (click)="cancel($event)"
+          src="../../../assets/image/close-share.png"
+        />
+      </div>
+      <span class="tips"
+        >为了方便您的分享行为数据统计，建议您使用以下的分享方式</span
+      >
+      <div class="btn-group">
+        <div class="btn">
+          <img src="../../../assets/image/qw-icon.png" />
+          <span>转发</span>
+        </div>
+        <div class="btn">
+          <img src="../../../assets/image/wx-icon.png" />
+          <span>微信好友</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

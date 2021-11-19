@@ -1,0 +1,39 @@
+<div class="textEdit" id="text-edit" (click)="observe($event)">
+  <div id="fixed-top" class="fixed-top">
+    <div class="btnWrap">
+      <div class="cancel" (click)="cancel()">取 消</div>
+      <div class="save" (click)="save()">确 定</div>
+    </div>
+    <div class="customer-info">
+      <div class="title">插入客户数据：</div>
+      <div class="info-btn">
+        <div
+          class="btn"
+          *ngFor="let item of customerInfo; index as i"
+          (click)="getInfo(i)"
+          [attr.data-btn]="i"
+        >
+          {{ item.name }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content" [style.height]="contentHeight">
+    <div *ngFor="let text of textArr; let i = index; trackBy: trackByFn">
+      <textarea
+        class="textarea"
+        [style]="style"
+        [value]="text"
+        (input)="changeText($event, i)"
+        [attr.data-index]="i"
+      ></textarea>
+      <p class="tips" [class.last]="i === textArr.length - 1">
+        {{
+          isLimit[i]
+            ? "不能换行，已达到最大行数限制"
+            : "已输入" + text.length + "字"
+        }}
+      </p>
+    </div>
+  </div>
+</div>

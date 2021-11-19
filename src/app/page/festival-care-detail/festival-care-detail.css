@@ -1,0 +1,57 @@
+.festival-care-detail {
+  height: 100vh;
+  color: #333;
+  overflow: auto;
+  font-size: 0.32rem;
+  box-sizing: border-box;
+}
+.festival-care-detail::-webkit-scrollbar {
+  display: none;
+}
+.festival-care-detail .footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 0.3rem;
+  background-color: #fff;
+  box-shadow: 0 -3px 10px 0px rgba(0, 0, 0, 0.11);
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+.festival-care-detail .footer .button {
+  margin-right: 0.1rem;
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 0.8rem;
+  font-size: 0.32rem;
+  color: #fff;
+  background-color: #3078db;
+  border-radius: 0.04rem;
+}
+.festival-care-detail .footer .button:last-of-type {
+  margin: 0;
+}
+.festival-care-detail .footer .button.edit {
+  flex: 0 0 auto;
+  padding: 0 0.27rem 0 0.63rem;
+  height: 0.8rem;
+  color: #3078db;
+  background: #fff url(../../../assets/image/pencil.png) 0.27rem center / 0.28rem no-repeat;
+  border: 1px solid #3078db;
+}
+.empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.empty img {
+  width: 6rem;
+}
+.empty p {
+  font-size: 0.32rem;
+  font-weight: 500;
+}

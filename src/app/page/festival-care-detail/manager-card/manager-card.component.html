@@ -1,0 +1,23 @@
+<div class="manager-card" *ngIf="info">
+  <div class="head">
+    <img class="avatar" [src]="info.avatar" />
+    <div class="middle">
+      <div class="name">{{ info.name }}</div>
+      <div class="info">
+        {{ (info.positionShow && stringSlice(info.position, 12)) || "" }}
+        <br *ngIf="info.positionShow && info.position" />
+        {{ (info.deptShow && stringSlice(info.dept, 24)) || "" }}
+        <br *ngIf="info.deptShow && info.dept" />
+        {{ (info.phoneShow && info.phoneShowCard && info.phone) || "" }}
+      </div>
+    </div>
+    <img
+      class="code"
+      *ngIf="info.qrCardShow"
+      [src]="info.editQrCodeAndDesc ? info.qrCard || info.qrCode : info.qrCode"
+    />
+  </div>
+  <div *ngIf="info.descShow" class="describe">
+    {{ info.desc || "" }}
+  </div>
+</div>

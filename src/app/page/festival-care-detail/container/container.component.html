@@ -1,0 +1,60 @@
+<div
+  class="container"
+  [class.isIphoneX]="isIphoneX"
+  *ngIf="detail && sceneStyle && sceneText"
+>
+  <div class="content">
+    <section class="section1" *ngIf="detail.sceneStyleList.length > 1">
+      <h3>选择样式</h3>
+      <ul>
+        <li
+          [class.active]="activeIndex === i"
+          [class.moreThan3]="detail.sceneStyleList.length > 3"
+          (click)="onChange('activeIndex', i)"
+          *ngFor="let item of detail.sceneStyleList; let i = index"
+        >
+          <p>{{ item.name }}</p>
+          <img class="img" [src]="item.abbrPic || item.pic" />
+        </li>
+      </ul>
+    </section>
+
+    <section class="section2">
+      <div *ngIf="sceneStyle.sceneTextList.length > 1">
+        <h3>选择文案风格</h3>
+        <ul>
+          <li
+            *ngFor="let item of sceneStyle.sceneTextList; let i = index"
+            [class.active]="activeIndex2 === i"
+            (click)="onChange('activeIndex2', i)"
+          >
+            {{ item.title }}
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class="contentWrap"
+        [style]="{
+          backgroundColor: sceneStyle.backgroundColor
+        }"
+      >
+        <img [src]="sceneStyle.pic" style="width: '100%'" />
+        <div
+          class="logoWrap"
+          [class]="sceneStyle.logoLocation"
+          *ngIf="sceneStyle.isOpenLogo"
+        >
+          <img [src]="sceneStyle.logoUrl" class="corpLogo" />
+        </div>
+        <app-text-layout
+          [texts]="sceneText.text"
+          [layoutType]="sceneStyle.layoutType"
+          [style]="setStyle()"
+          (editEvent)="onEdit()"
+        >
+        </app-text-layout>
+      </div>
+    </section>
+  </div>
+</div>

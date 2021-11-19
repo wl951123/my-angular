@@ -1,0 +1,62 @@
+@font-face {
+  font-family: handwritings;
+  src: url(../../../assets/fonts/lib/handwritings.woff2);
+}
+.textLayout {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.8rem;
+  width: 100vw;
+  overflow: hidden;
+  color: #333;
+  font-family: handwritings;
+  box-sizing: border-box;
+}
+.textLayout section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.textLayout section p {
+  flex: 1 1 auto;
+  font-size: 0.36rem;
+  line-height: 0.46rem;
+  white-space: pre-wrap;
+  overflow: hidden;
+  letter-spacing: 0.01rem;
+}
+.textLayout section {
+  position: absolute;
+}
+.textLayout section.layout1 {
+  top: 2rem;
+  left: 0.8rem;
+  right: 0.8rem;
+  height: 10.2rem;
+}
+.textLayout section.layout2 {
+  top: 1.3rem;
+  left: 0.8rem;
+  right: 0.8rem;
+  height: 5.4rem;
+}
+.textLayout section.layout2:nth-of-type(2) {
+  top: 7.5rem;
+}
+.textLayout section.layout3 {
+  top: 2.3rem;
+  left: 0.8rem;
+  right: 0.8rem;
+  height: 1.6rem;
+}
+.textLayout section.layout3:nth-of-type(2) {
+  top: 4.3rem;
+  height: 5.6rem;
+}
+.textLayout section.layout3:nth-of-type(3) {
+  top: 10.3rem;
+  height: 1.6rem;
+}

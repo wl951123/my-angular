@@ -1,0 +1,61 @@
+<div>
+  <div class="am-modal-mask" [style.top]="showModel ? '0' : '100vh'"></div>
+  <div class="am-modal-wrap" [style.top]="showModel ? '0' : '100vh'">
+    <div
+      class="am-modal poster-generate-modal"
+      style="width: calc(100% - 0.6rem); height: auto"
+    >
+      <div class="am-modal-content">
+        <div class="am-modal-body">
+          <div class="poster-grid-wrap">
+            <div class="single-img-wrap">
+              <a>
+                <img
+                  *ngIf="grid.url"
+                  [src]="grid.url"
+                  (touchStart)="onTouchStart()"
+                  (touchEnd)="onTouchEnd()"
+                />
+                <div class="loading" *ngIf="grid.loading">
+                  <app-loading [fontSize]="'0.06rem'"></app-loading>
+                </div>
+                <div class="fail" *ngIf="grid.fail">资源出错</div>
+              </a>
+            </div>
+            <section class="tips-content">
+              <div class="tips-top">
+                <p>长按图片进行分享/保存相册</p>
+                <p>（如有分享文案将自动复制，可长按粘贴）</p>
+              </div>
+              <div class="tips">
+                <div class="tips-icon">
+                  <img src="../../../assets/image/tip2.png" />分享小提示
+                </div>
+                <p>1.可长按海报直接分享至微信/企业微信聊天框</p>
+                <p>2.保存海报至手机相册，配合文案进行微信朋友圈营销</p>
+              </div>
+            </section>
+          </div>
+          <div class="modal-close-icon" (click)="onClose()">
+            <svg
+              viewBox="64 64 896 896"
+              focusable="false"
+              data-icon="close-circle"
+              width="1em"
+              height="1em"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 00-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z"
+              ></path>
+              <path
+                d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+              ></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

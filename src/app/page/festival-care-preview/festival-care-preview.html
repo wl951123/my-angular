@@ -1,0 +1,21 @@
+<div
+  class="festival-care-preview"
+  [style.backgroundColor]="detail.backgroundColor"
+  *ngIf="detail"
+>
+  <div class="posterWrap">
+    <img class="poster" [src]="detail.pic" alt="" />
+    <div
+      class="logoWrap"
+      [class]="detail.logoLocation"
+      *ngIf="detail.isOpenLogo"
+    >
+      <img class="corpLogo" [src]="detail.logoUrl" />
+    </div>
+    <app-text-layout
+      [texts]="detail.texts"
+      [layoutType]="detail.layoutType"
+      [style]="style"
+    ></app-text-layout>
+  </div>
+</div>

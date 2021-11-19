@@ -1,0 +1,26 @@
+{
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "cSpell.words": [
+    "antd",
+    "caizhi",
+    "echarts",
+    "imgs",
+    "jimo",
+    "jimoTracker",
+    "jotai",
+    "msgtype",
+    "noreferrer",
+    "retdata",
+    "retmsg",
+    "sourceid",
+    "swiper",
+    "tenone",
+    "WECHAT"
+  ],
+  "files.eol": "\n",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}

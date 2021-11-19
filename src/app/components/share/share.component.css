@@ -1,0 +1,73 @@
+#share-box-bg {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9999999;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+#share-box-bg .share-box {
+  background-color: white;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+#share-box-bg .share-box .select-share .top-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 0.88rem;
+  padding: 0 0.3rem;
+  border-bottom: 0.01rem solid #ebebeb;
+}
+#share-box-bg .share-box .select-share .top-content .top-title {
+  font-size: 0.28rem;
+  font-weight: 600;
+  color: #333333;
+}
+#share-box-bg .share-box .select-share .top-content .top-img {
+  width: 0.26rem;
+  height: 0.26rem;
+}
+#share-box-bg .share-box .select-share .tips {
+  font-size: 0.22rem;
+  line-height: 0.36rem;
+  color: #999999;
+  font-family: PingFangSC-Regular, PingFang SC;
+  padding: 0.3rem 0.3rem 0 0.3rem;
+  font-weight: 400;
+  display: block;
+  text-align: left;
+}
+#share-box-bg .share-box .select-share .btn-group {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+#share-box-bg .share-box .select-share .btn-group .btn {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.1rem;
+  padding: 0.4rem 0.2rem;
+}
+#share-box-bg .share-box .select-share .btn-group .btn img {
+  width: 0.88rem;
+  height: 0.88rem;
+}
+#share-box-bg .share-box .select-share .btn-group .btn span {
+  margin-top: 0.15rem;
+  font-size: 0.24rem;
+  font-weight: 400;
+  color: #333333;
+  line-height: 0.3rem;
+}
+#share-box-bg .share-box .select-share .btn-group::-webkit-scrollbar {
+  display: none;
+}

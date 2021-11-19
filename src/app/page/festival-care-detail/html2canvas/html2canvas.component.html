@@ -1,0 +1,24 @@
+<div class="main" *ngIf="sceneStyle && sceneText">
+  <div class="main-canvas" id="poster-canvas" [style.width]="width + 'px'">
+    <div
+      class="posterWrap"
+      [style.backgroundColor]="sceneStyle.backgroundColor"
+    >
+      <img class="poster" [src]="sceneStyle.pic" />
+      <div
+        class="logoWrap"
+        [class]="sceneStyle.logoLocation"
+        *ngIf="sceneStyle.isOpenLogo"
+      >
+        <img [src]="sceneStyle.logoUrl" class="corpLogo" />
+      </div>
+      <app-text-layout
+        [texts]="sceneText.text"
+        [layoutType]="sceneStyle.layoutType"
+        [style]="setStyle()"
+      >
+      </app-text-layout>
+    </div>
+    <app-manager-card [info]="managerInfo"></app-manager-card>
+  </div>
+</div>

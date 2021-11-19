@@ -1,0 +1,41 @@
+.manager-card {
+  margin: 0 auto;
+  padding: 0.35rem 0.3rem 0.35rem 0.4rem;
+  width: 100%;
+  line-height: normal;
+  background: #fff;
+  box-shadow: 0 0.07rem 0.16rem 0 rgba(159, 166, 185, 0.66);
+  box-sizing: border-box;
+}
+.manager-card .head {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.manager-card .head .avatar {
+  width: 1.58rem;
+}
+.manager-card .head .code {
+  width: 1.25rem;
+}
+.manager-card .head .middle {
+  flex: auto;
+  padding: 0 0 0.16rem 0.32rem;
+}
+.manager-card .head .middle .name {
+  padding-bottom: 0.05rem;
+  font-size: 0.36rem;
+  font-weight: bold;
+  color: #111;
+}
+.manager-card .head .middle .info {
+  font-size: 0.24rem;
+  color: #666;
+  line-height: 1.4;
+}
+.manager-card .describe {
+  padding: 0.2rem 0.2rem 0;
+  font-size: 0.24rem;
+  color: #666666;
+  line-height: 1.2;
+}

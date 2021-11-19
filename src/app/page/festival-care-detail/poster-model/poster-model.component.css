@@ -1,0 +1,120 @@
+.am-modal-mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.4);
+  transition: top 0.25s ease-in-out;
+}
+.am-modal-wrap {
+  position: fixed;
+  overflow: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  z-index: 999;
+  outline: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-transform: translateZ(1px);
+  transform: translateZ(1px);
+  transition: top 0.25s ease-in-out;
+}
+.poster-generate-modal .am-modal-content {
+  overflow: unset;
+  background-color: transparent;
+}
+.poster-generate-modal .am-modal-content .am-modal-body {
+  position: relative;
+}
+.poster-generate-modal .am-modal-content .am-modal-body .modal-close-icon {
+  position: absolute;
+  left: calc(50% - 0.3rem);
+  bottom: -1rem;
+  font-size: 0.6rem;
+  color: #fff;
+}
+.poster-generate-modal .am-modal-content .am-modal-body .poster-grid-wrap {
+  padding: 0.3rem;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 0.16rem;
+  user-select: none !important;
+  background-color: #fff;
+}
+.poster-generate-modal .am-modal-content .am-modal-body .poster-grid-wrap .single-img-wrap {
+  width: 100%;
+}
+.poster-generate-modal .am-modal-content .am-modal-body .poster-grid-wrap .single-img-wrap a {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  min-height: 2.34rem;
+  line-height: 0;
+  user-select: none;
+  text-align: center;
+}
+.poster-generate-modal .am-modal-content .am-modal-body .poster-grid-wrap .single-img-wrap a .loading {
+  padding-top: 1rem;
+}
+.poster-generate-modal .am-modal-content .am-modal-body .poster-grid-wrap .single-img-wrap a svg {
+  position: absolute;
+  width: 0.46rem;
+  height: 0.46rem;
+  top: calc(50% - 0.23rem);
+  left: calc(50% - 0.23rem);
+}
+.poster-generate-modal .am-modal-content .am-modal-body .poster-grid-wrap .single-img-wrap a img {
+  max-width: 100%;
+  max-height: 50vh;
+  box-shadow: 0 0 0.1rem 0.05rem #ccc;
+  pointer-events: auto !important;
+  -webkit-touch-callout: none;
+}
+.poster-generate-modal .am-modal-content .am-modal-body .poster-grid-wrap .single-img-wrap a .fail {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  font-size: 0.24rem;
+  color: #aaa;
+}
+.poster-generate-modal .am-modal-content .am-modal-body .poster-grid-wrap .tips-content {
+  width: 100%;
+}
+.poster-generate-modal .am-modal-content .am-modal-body .poster-grid-wrap .tips-content .tips-top > p {
+  margin-top: 0.2rem;
+  font-size: 0.32rem;
+  text-align: center;
+  color: #3078db;
+}
+.poster-generate-modal .am-modal-content .am-modal-body .poster-grid-wrap .tips-content .tips-top > p:nth-child(2) {
+  margin-top: 0.1rem;
+  font-size: 0.24rem;
+}
+.poster-generate-modal .am-modal-content .am-modal-body .poster-grid-wrap .tips-content .tips {
+  margin-top: 0.3rem;
+  font-size: 0.24rem;
+  text-align: left;
+  line-height: 0.36rem;
+  color: #999;
+}
+.poster-generate-modal .am-modal-content .am-modal-body .poster-grid-wrap .tips-content .tips .tips-icon {
+  position: relative;
+  display: inline-block;
+  padding-left: 0.36rem;
+  margin-bottom: 0.05rem;
+  color: #111;
+}
+.poster-generate-modal .am-modal-content .am-modal-body .poster-grid-wrap .tips-content .tips .tips-icon img {
+  position: absolute;
+  left: 0;
+  top: -0.02rem;
+  width: 0.3rem;
+}

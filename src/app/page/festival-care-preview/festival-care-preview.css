@@ -1,0 +1,41 @@
+.festival-care-preview {
+  height: 100vh;
+  overflow: auto;
+  line-height: 0;
+}
+.festival-care-preview .posterWrap {
+  position: relative;
+  height: 14.2rem;
+  line-height: 0;
+  overflow: hidden;
+}
+.festival-care-preview .posterWrap .poster {
+  width: 100%;
+}
+.festival-care-preview .posterWrap .logoWrap {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 0.4rem;
+  position: absolute;
+  top: 0.4rem;
+  left: 0;
+  right: 0;
+}
+.festival-care-preview .posterWrap .logoWrap.bottom,
+.festival-care-preview .posterWrap .logoWrap.bottom-left,
+.festival-care-preview .posterWrap .logoWrap.bottom-right {
+  top: unset;
+  bottom: 0.4rem;
+}
+.festival-care-preview .posterWrap .logoWrap.top-left,
+.festival-care-preview .posterWrap .logoWrap.bottom-left {
+  justify-content: flex-start;
+}
+.festival-care-preview .posterWrap .logoWrap.top-right,
+.festival-care-preview .posterWrap .logoWrap.bottom-right {
+  justify-content: flex-end;
+}
+.festival-care-preview .posterWrap .logoWrap .corpLogo {
+  height: 0.5rem;
+  width: auto;
+}

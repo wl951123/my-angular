@@ -1,0 +1,13 @@
+.empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.empty img {
+  width: 6rem;
+}
+.empty p {
+  font-size: 0.32rem;
+  font-weight: 500;
+}

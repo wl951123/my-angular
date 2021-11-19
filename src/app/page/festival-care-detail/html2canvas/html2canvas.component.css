@@ -1,0 +1,46 @@
+.main {
+  position: fixed;
+  bottom: 0;
+  height: 0;
+  overflow-y: auto;
+}
+.main .main-canvas {
+  position: absolute;
+  left: -9999px;
+  line-height: 0;
+}
+.main .main-canvas .posterWrap {
+  position: relative;
+  height: 14.2rem;
+  overflow: hidden;
+}
+.main .main-canvas .posterWrap .poster {
+  width: 100%;
+}
+.main .main-canvas .posterWrap .logoWrap {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 0.4rem;
+  position: absolute;
+  top: 0.4rem;
+  left: 0;
+  right: 0;
+}
+.main .main-canvas .posterWrap .logoWrap.bottom,
+.main .main-canvas .posterWrap .logoWrap.bottom-left,
+.main .main-canvas .posterWrap .logoWrap.bottom-right {
+  top: unset;
+  bottom: 0.4rem;
+}
+.main .main-canvas .posterWrap .logoWrap.top-left,
+.main .main-canvas .posterWrap .logoWrap.bottom-left {
+  justify-content: flex-start;
+}
+.main .main-canvas .posterWrap .logoWrap.top-right,
+.main .main-canvas .posterWrap .logoWrap.bottom-right {
+  justify-content: flex-end;
+}
+.main .main-canvas .posterWrap .logoWrap .corpLogo {
+  height: 0.5rem;
+  width: auto;
+}

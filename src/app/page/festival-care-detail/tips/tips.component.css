@@ -1,0 +1,23 @@
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 1.5rem 0.5rem 0;
+  background-color: rgba(0, 0, 0, 0.59);
+  z-index: 999;
+  box-sizing: border-box;
+}
+.mask > div {
+  position: relative;
+  height: 9.35rem;
+  background: url(../../../../assets/image/guide.png) center / cover no-repeat;
+}
+.mask > div .closeBtn {
+  position: absolute;
+  left: 1.6rem;
+  bottom: 0;
+  width: 3rem;
+  height: 1rem;
+}

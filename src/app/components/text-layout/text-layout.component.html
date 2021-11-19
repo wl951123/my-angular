@@ -1,0 +1,8 @@
+<div class="textLayout" [style]="style">
+  <section
+    [class]="'layout' + layoutType"
+    *ngFor="let item of texts; let i = index"
+  >
+    <p (click)="onEdit()">{{ item }}</p>
+  </section>
+</div>

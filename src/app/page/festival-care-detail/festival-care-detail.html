@@ -1,0 +1,64 @@
+<div
+  class="festival-care-detail"
+  [style]="isEditing || isFirstEnter ? style : {}"
+  *ngIf="detail?.isOpen"
+>
+  <app-header [reason]="detail?.reason"></app-header>
+  <app-container
+    [detail]="detail"
+    [isEditing]="isEditing"
+    [isIphoneX]="isIphoneX"
+    [sceneStyle]="sceneStyle"
+    [sceneText]="sceneText"
+    (editEvent)="onEdit()"
+    (setSceneStyle)="setSceneStyle($event)"
+    (setSceneText)="setSceneText($event)"
+  ></app-container>
+  <app-footer
+    *ngIf="!isEditing"
+    (onEdit)="onEdit()"
+    (onShare)="changeShare()"
+    (onCreatePoster)="onCreatePoster()"
+  >
+  </app-footer>
+</div>
+
+<!-- 编辑弹窗 -->
+<app-text-edit
+  *ngIf="isEditing && detail && sceneStyle && sceneText"
+  [layoutType]="sceneStyle.layoutType"
+  [fontFamily]="sceneText.fontFamily"
+  [texts]="sceneText.text"
+  [customerInfo]="customerInfo"
+  (onCancel)="onCancel()"
+  (onSave)="onSave($event)"
+></app-text-edit>
+
+<!-- 分享弹窗 -->
+<app-share
+  *ngIf="isShare"
+  [isShare]="isShare"
+  (onCancel)="changeShare()"
+></app-share>
+
+<!-- 无数据 -->
+<app-no-data *ngIf="!detail?.isOpen && !isLoading"></app-no-data>
+
+<!-- 首次进入提示 -->
+<app-tips [isFirstEnter]="isFirstEnter" (onCancel)="onCloseMask()"></app-tips>
+
+<!-- 海报用来生成图片 -->
+<app-html2canvas
+  [sceneStyle]="sceneStyle"
+  [sceneText]="sceneText"
+  [managerInfo]="managerInfo"
+></app-html2canvas>
+
+<!-- 海报弹框 -->
+<app-poster-model
+  [showModel]="showModel"
+  [grid]="grid"
+  (close)="closeModel()"
+  (touchStart)="touchStart()"
+  (touchEnd)="touchEnd()"
+></app-poster-model>
