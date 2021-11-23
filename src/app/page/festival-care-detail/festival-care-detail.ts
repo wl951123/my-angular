@@ -1,14 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { HeroService } from 'src/service/festivalCare.service';
+import { FestivalCareService } from 'src/services/festivalCare.service';
 import {
   CareDetail,
   SceneStyleList,
   SceneTextList,
   PosterInfo,
+  ManagerInfo,
+  CustomerInfo,
 } from 'src/type/common';
 import { isIphoneX, allImgLoaded } from 'src/utils/common';
 import html2canvas from 'html2canvas';
 import { timer } from 'rxjs';
+import { parse, ParsedQuery, stringify } from 'query-string';
+import {
+  POINT_TYPE,
+  WECHAT_ENV,
+  WX_DEFAULT_JSAPI_LIST,
+} from '../../../utils/constants';
+import { getEnv } from 'src/utils/common';
+import { Toast } from 'ng-zorro-antd-mobile';
 
 @Component({
   selector: 'app-festival-care-detail',
@@ -16,20 +26,26 @@ import { timer } from 'rxjs';
   styleUrls: ['./festival-care-detail.css'],
 })
 export class FestivalCareDetailComponent implements OnInit {
-  constructor(private heroService: HeroService) {}
-  isFirstEnter: boolean = !localStorage.getItem('festivalCareDetailFlag');
-  detail?: CareDetail;
+  constructor(
+    private festivalCareService: FestivalCareService,
+    public _toast: Toast
+  ) {}
+  isFirstEnter: boolean = !sessionStorage.getItem('festivalCareDetailFlag');
+  detail = {} as CareDetail;
   isIphoneX: boolean = false;
   isEditing: boolean = false;
-  managerInfo: any = {};
-  customerInfo: Array<any> = [];
-  sceneStyle?: SceneStyleList;
-  sceneText?: SceneTextList;
+  managerInfo = {} as ManagerInfo;
+  customerInfo: Array<CustomerInfo> = [];
+  sceneStyle = {} as SceneStyleList;
+  sceneText = {} as SceneTextList;
   grid: PosterInfo = { loading: true };
   showModel: boolean = false;
   isShare: boolean = false;
   isLoading: boolean = true;
   timerTouchStart: any = null;
+  linkParameters: ParsedQuery<string> = parse(window.location.search);
+  shareId: Number | string = '';
+  wxSDKParams = {} as { [key: string]: string };
   style = {
     height: '100vh',
     overflow: 'hidden',
@@ -43,10 +59,7 @@ export class FestivalCareDetailComponent implements OnInit {
 
   // 设置文案
   setSceneText(e: SceneTextList): void {
-    const { name, corpName } = this.managerInfo;
-    e.text = e.text.map((item) =>
-      item.replace(/\$name\$/g, name).replace(/\$corp\$/g, corpName)
-    );
+    e.text = e.text.map((item) => this.formatText(item));
     this.sceneText = e;
   }
 
@@ -67,21 +80,60 @@ export class FestivalCareDetailComponent implements OnInit {
 
   // 确定编辑内容
   onSave(e: string[]): void {
-    // TODO: 敏感词校验
-
-    this.sceneText && (this.sceneText.text = e);
+    this.sceneText &&
+      (this.sceneText.text = e.map((item) => this.formatText(item)));
     this.isEditing = false;
   }
 
   // 分享
   changeShare(): void {
-    this.isShare = !this.isShare;
+    if (!this.isShare) {
+      const { isOpen, sharePic, shareDescribe, shareTitle, name } = this.detail;
+      const {
+        backgroundColor,
+        fontColor,
+        logoLocation,
+        logoStyle,
+        logoUrl,
+        isOpenLogo,
+        pic,
+        layoutType,
+      } = this.sceneStyle;
+      const { fontFamily, text } = this.sceneText;
+      const params = {
+        templateId: this.linkParameters['id'],
+        userId: sessionStorage.getItem('userId'),
+        backgroundColor,
+        fontColor,
+        logoLocation,
+        logoStyle,
+        logoUrl,
+        isOpenLogo,
+        pic,
+        layoutType,
+        isOpen,
+        sharePic,
+        shareDescribe,
+        shareTitle,
+        name,
+        fontFamily,
+        texts: text,
+      };
+      // 获取分享的id
+      this.festivalCareService.getShareId(params).subscribe((res) => {
+        this.shareId = res[0].shareId;
+        this.isShare = true;
+      });
+    } else {
+      this.isShare = false;
+    }
   }
 
+  // 长按图片0.4秒后调用埋点
   touchStart = () => {
     console.log('start');
     this.timerTouchStart = setTimeout(() => {
-      this.trackPosterData();
+      this.trackPosterData('POSTER_SHARE');
     }, 400);
   };
 
@@ -90,13 +142,57 @@ export class FestivalCareDetailComponent implements OnInit {
     clearTimeout(this.timerTouchStart);
   };
 
+  onShare = async (e: string) => {
+    const { shareTitle, shareDescribe, sharePic } = this.detail;
+    const pic = this.sceneStyle?.pic;
+    const type = e === 'FORWARD' ? 'shareAppMessage' : 'shareWechatMessage';
+    const link =
+      // TODO: 须配置的链接地址
+      'http://localhost:4200/festivalCarePreview?' +
+      stringify({
+        shareId: this.shareId,
+        userId: sessionStorage.getItem('userId'),
+        busId: this.linkParameters['busId'],
+        typeId: this.linkParameters['typeId'],
+      });
+    console.log('%c  link:', 'color: #0e93e0;background: #aaefe5;', link);
+    wx.invoke &&
+      wx.invoke(
+        type,
+        {
+          title: this.formatText(shareTitle),
+          desc: this.formatText(shareDescribe),
+          link,
+          imgUrl: sharePic || pic,
+        },
+        (res) => {
+          console.log(`wx.invoke ${type} ===>`, res);
+          if (res.err_msg === `${type}:ok`) {
+            // 分享成功埋点
+            this.trackPosterData(e);
+          }
+        }
+      );
+  };
+
   // 埋点
-  trackPosterData(): void {}
+  trackPosterData(type: string): void {
+    // 经理userid、时间、链接/图片、分享渠道（选链接时）、typeid、busId
+    const params = {
+      userId: sessionStorage.getItem('userId') || '',
+      time: new Date().getTime(),
+      link: window.location.href,
+      shareChannel: POINT_TYPE['SHARE_CHANNEL'][type] || '',
+      typeId: this.linkParameters['typeId'],
+      busId: this.linkParameters['busId'],
+    };
+    // TODO: 调用埋点接口
+  }
+
   // 分享海报
   onCreatePoster(): void {
     timer(300).subscribe(() => {
       const container = document.querySelector('#poster-canvas') as HTMLElement;
-
       const grid = this.grid;
       allImgLoaded(container)
         .then(() => {
@@ -124,38 +220,120 @@ export class FestivalCareDetailComponent implements OnInit {
     this.grid = { loading: true };
   }
 
+  // 经理名，机构名文本替换
+  formatText = (text = '') => {
+    const { name = '', corpName = '' } = this.managerInfo;
+    return text.replace(/\$name\$/g, name).replace(/\$corp\$/g, corpName);
+  };
+
   // 获取节点关怀详情
   getDetail(): void {
-    this.heroService.getDetail().subscribe((detail) => {
-      this.detail = detail.retdata;
-      this.setSceneStyle(detail.retdata.sceneStyleList[0]);
-      this.setSceneText(detail.retdata.sceneStyleList[0]?.sceneTextList[0]);
-      document.title = this.detail.name;
-      this.isLoading = false;
-    });
+    const templateId = this.linkParameters['id'];
+    if (templateId) {
+      this.isLoading && this._toast.loading('加载中...', 0);
+      this.festivalCareService
+        .getDetail({
+          templateId,
+        })
+        .subscribe((detail) => {
+          this.detail = detail[0];
+          this.setSceneStyle(detail[0].sceneStyleList[0]);
+          this.setSceneText(detail[0].sceneStyleList[0]?.sceneTextList[0]);
+          document.title = this.detail?.name || '节点关怀';
+          this._toast.hide();
+          this.isLoading = false;
+        });
+    }
   }
 
   getIsIphoneX(): void {
     this.isIphoneX = isIphoneX();
   }
 
+  // 获取经理卡片信息
   getManagerInfo(): void {
-    this.heroService
-      .getManagerInfo()
-      .subscribe((val) => (this.managerInfo = val));
+    this.festivalCareService
+      .getManagerInfo({ userId: sessionStorage.getItem('userId') })
+      .subscribe((val) => (this.managerInfo = val[0]));
   }
 
+  // 获取用户标签信息
   getCustomerInfo(): void {
-    this.heroService
-      .getCustomerInfo()
+    this.festivalCareService
+      .getCustomerInfo({
+        busId: this.linkParameters['busId'],
+        externalUserId: this.linkParameters['external_userid'],
+      })
       .subscribe((val) => (this.customerInfo = val));
   }
 
+  /**
+   *微信JS-SDK 初始化
+   *
+   * @param {IStrValObjProps} wxSDKParams 全局微信JS-SDK授权参数
+   * @memberof HomePage
+   */
+  wxSDKInit() {
+    // 只有在企业微信下,才进行微信JS-SDK鉴权
+    if (getEnv() !== WECHAT_ENV.qyWechat) return;
+    // TODO: 签名获取的本地存储 暂时先模拟
+    const wxSDKParams = sessionStorage.getItem('wxSDKParams') || '{}';
+    this.wxSDKParams = JSON.parse(wxSDKParams);
+    const { appId, timestamp, nonceStr, signature } = this.wxSDKParams;
+    const obj = {
+      beta: true,
+      debug: false,
+      appId,
+      timestamp,
+      nonceStr,
+      signature,
+      jsApiList: [...WX_DEFAULT_JSAPI_LIST],
+      success: (result: object) => {},
+      fail: (error: Error) => {
+        this._toast.info('微信接口授权失败:' + JSON.stringify(error));
+      },
+    };
+    wx.config(obj);
+    wx.ready(() => {
+      // 只保留基础菜单
+      wx.hideOptionMenu();
+      this.wxAgentConfigInit();
+    });
+  }
+
+  // 企业微信JS-SDK需要代理配置的接口初始化
+  wxAgentConfigInit() {
+    const { appId, agentid, timestamp, nonceStr, agentSignature } =
+      this.wxSDKParams;
+    wx.agentConfig({
+      corpid: appId, // 必填，企业微信的corpid，必须与当前登录的企业一致
+      agentid, // 必填，企业微信的应用id （e.g. 1000247）
+      timestamp, // 必填，生成签名的时间戳
+      nonceStr, // 必填，生成签名的随机串
+      signature: agentSignature, // 必填，签名，见附录-JS-SDK使用权限签名算法
+      jsApiList: WX_DEFAULT_JSAPI_LIST, // 必填，传入需要使用的接口名称
+      success: (result: object) => {
+        console.log('agentconfig 初始化成功');
+      },
+      fail: (error: Error) => {
+        this._toast.info('微信接口授权失败:' + JSON.stringify(error));
+      },
+    });
+  }
+
   ngOnInit(): void {
-    localStorage.setItem('festivalCareDetailFlag', '1');
+    // 用户首次进入的操作提示
+    sessionStorage.setItem('festivalCareDetailFlag', '1');
+    // TODO: 模拟userId, 正式上线要删掉
+    sessionStorage.setItem('userId', 'wanlong');
+    try {
+      this.wxSDKInit();
+    } catch (error) {
+      console.log('%c  error:', 'color: #0e93e0;background: #aaefe5;', error);
+    }
+    this.getIsIphoneX();
     this.getManagerInfo();
     this.getDetail();
-    this.getIsIphoneX();
     this.getCustomerInfo();
   }
 }

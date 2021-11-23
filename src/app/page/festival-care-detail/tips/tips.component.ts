@@ -14,6 +14,6 @@ export class TipsComponent implements OnInit {
     this.onCancel.emit();
   }
   ngOnInit(): void {
-    localStorage.setItem('festivalCareDetailFlag', '1');
+    sessionStorage.setItem('festivalCareDetailFlag', '1');
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CareDetail, SceneStyleList, SceneTextList } from 'src/type/common';
+import { SceneStyleList, SceneTextList, ManagerInfo } from 'src/type/common';
 
 @Component({
   selector: 'app-html2canvas',
@@ -11,7 +11,7 @@ export class Html2canvasComponent implements OnInit {
   constructor() {}
   @Input() sceneStyle?: SceneStyleList;
   @Input() sceneText?: SceneTextList;
-  @Input() managerInfo?: any;
+  @Input() managerInfo?: ManagerInfo;
   setStyle() {
     return {
       color: this.sceneStyle?.fontColor,

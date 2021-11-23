@@ -1,7 +1,6 @@
 import { NgModule, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
 
 import { TextLayoutComponent } from './text-layout/text-layout.component';
 
@@ -15,6 +14,6 @@ const sharedComponents = [TextLayoutComponent, NoDataComponent, ShareComponent];
   imports: [CommonModule, FormsModule],
   declarations: [...sharedComponents],
   providers: [],
-  exports: [...sharedComponents, NgZorroAntdMobileModule],
+  exports: [...sharedComponents],
 })
 export class ComponentsModule {}

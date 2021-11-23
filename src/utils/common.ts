@@ -1,3 +1,5 @@
+import { WECHAT_ENV } from './constants';
+
 // 判断某元素节点下全部图片是否加载成功
 export const allImgLoaded = async (element: HTMLElement) => {
   let result = false;
@@ -73,4 +75,17 @@ export const isIphoneX = () => {
     );
   }
   return false;
+};
+
+// 判断当前是微信环境还是企业微信环境
+export const getEnv = () => {
+  const ua = window.navigator.userAgent.toLowerCase();
+  if (Boolean(ua.match(/MicroMessenger/i)) && Boolean(ua.match(/wxwork/i))) {
+    // 企业微信
+    return WECHAT_ENV.qyWechat;
+  } else if (ua.match(/micromessenger/i)) {
+    // 微信
+    return WECHAT_ENV.wechat;
+  }
+  return;
 };

@@ -39,10 +39,13 @@
   *ngIf="isShare"
   [isShare]="isShare"
   (onCancel)="changeShare()"
+  (onShare)="onShare($event)"
 ></app-share>
 
 <!-- 无数据 -->
-<app-no-data *ngIf="!detail?.isOpen && !isLoading"></app-no-data>
+<app-no-data
+  *ngIf="(!detail?.isOpen && !isLoading) || !linkParameters['id']"
+></app-no-data>
 
 <!-- 首次进入提示 -->
 <app-tips [isFirstEnter]="isFirstEnter" (onCancel)="onCloseMask()"></app-tips>

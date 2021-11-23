@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FestivalCareDetailModule } from './page/festival-care-detail/festival-care-detail.module';
 import { FestivalCarePreviewModule } from './page/festival-care-preview/festival-care-preview.module';
+import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +17,7 @@ import { FestivalCarePreviewModule } from './page/festival-care-preview/festival
     HttpClientModule,
     FestivalCareDetailModule,
     FestivalCarePreviewModule,
+    NgZorroAntdMobileModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

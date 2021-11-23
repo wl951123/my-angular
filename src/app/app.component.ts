@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css', '../assets/css/reset.css'],
 })
 export class AppComponent {
-  title = 'my-angular';
   constructor() {
     const scale = document.documentElement.clientWidth / 750;
     // 动态设置html的font-size

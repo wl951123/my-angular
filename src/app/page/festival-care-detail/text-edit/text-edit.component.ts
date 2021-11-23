@@ -7,6 +7,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { timer } from 'rxjs';
+import { CustomerInfo } from 'src/type/common';
 
 @Component({
   selector: 'app-text-edit',
@@ -17,7 +18,7 @@ export class TextEditComponent implements OnInit {
   @Input() layoutType: number = 1;
   @Input() fontFamily: number = 0;
   @Input() texts: string[] = [];
-  @Input() customerInfo: Array<any> = [];
+  @Input() customerInfo: Array<CustomerInfo> = [];
   @Output() onCancel = new EventEmitter();
   @Output() onSave = new EventEmitter<string[]>();
 
@@ -104,7 +105,7 @@ export class TextEditComponent implements OnInit {
       ] as HTMLTextAreaElement;
       const ind = element.selectionEnd; // 光标位置
       // TODO: 接口获取
-      const value = this.customerInfo[index].value; // 需插入的值
+      const value = this.customerInfo[index].labelValue; // 需插入的值
       const text = this.textArr[focusIndex];
       const newText = text.slice(0, ind) + value + text.slice(ind); // 更新后的text
       this.checkContent(element, newText, focusIndex).then((res) => {

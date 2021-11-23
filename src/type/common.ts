@@ -1,3 +1,4 @@
+// 场景详情
 export interface CareDetail {
   id: number;
   name: string;
@@ -5,21 +6,17 @@ export interface CareDetail {
   pic?: string;
   reason?: string;
   sceneStyleList: SceneStyleList[];
-  relationType?: string;
   shareTitle?: string;
   shareDescribe?: string;
   sharePic?: string;
-  corpBanner?: {};
-  isOpenLike?: boolean;
-  isRecommend?: boolean;
   isOpen: boolean;
   sourceId?: number;
   typeName?: string;
-  recommendTag?: number;
   sort?: number;
   createTime?: number;
 }
 
+// 样式列表
 export interface SceneStyleList {
   id: number;
   name: string;
@@ -32,15 +29,11 @@ export interface SceneStyleList {
   logoUrl?: string;
   logoLocation: string;
   isOpen: boolean;
-  sceneTextList: {
-    id: number;
-    title: string;
-    text: string[];
-    fontFamily: number;
-  }[];
+  sceneTextList: SceneTextList[];
   layoutType: number;
 }
 
+// 文案列表
 export interface SceneTextList {
   id: number;
   title: string;
@@ -48,12 +41,14 @@ export interface SceneTextList {
   fontFamily: number;
 }
 
+// 海报信息
 export interface PosterInfo {
   loading: boolean;
   fail?: boolean;
   url?: string;
 }
 
+// 分享详情
 export interface ShareDetail {
   id: number;
   name: string;
@@ -67,4 +62,33 @@ export interface ShareDetail {
   layoutType: number;
   pic: string;
   shareTitle: string;
+}
+
+// 员工信息
+export interface ManagerInfo {
+  name?: string;
+  position?: string;
+  positionShow?: boolean;
+  avatar?: string;
+  qrCode?: string;
+  corpName?: string;
+  corpNameShow?: boolean;
+  dept?: string;
+  deptShow?: boolean;
+  userId?: string;
+  desc?: string;
+  descShow?: boolean;
+  qrCard?: string;
+  qrCardShow?: boolean;
+  phone?: string;
+  phoneShow?: boolean;
+  phoneShowCard?: boolean;
+  editQrCodeAndDesc?: boolean;
+}
+
+// 用户标签信息
+export interface CustomerInfo {
+  labelCd: string;
+  labelNm: string;
+  labelValue: string;
 }
