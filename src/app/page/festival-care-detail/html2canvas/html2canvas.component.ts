@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { SceneStyleList, SceneTextList, ManagerInfo } from 'src/type/common';
 
 @Component({
-  selector: 'app-html2canvas',
+  selector: 'festival-html2canvas',
   templateUrl: './html2canvas.component.html',
   styleUrls: ['./html2canvas.component.css'],
 })

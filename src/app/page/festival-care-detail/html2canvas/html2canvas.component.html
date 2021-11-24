@@ -12,13 +12,13 @@
       >
         <img [src]="sceneStyle.logoUrl" class="corpLogo" />
       </div>
-      <app-text-layout
+      <festival-text-layout
         [texts]="sceneText.text"
         [layoutType]="sceneStyle.layoutType"
         [style]="setStyle()"
       >
-      </app-text-layout>
+      </festival-text-layout>
     </div>
-    <app-manager-card [info]="managerInfo"></app-manager-card>
+    <festival-manager-card [info]="managerInfo"></festival-manager-card>
   </div>
 </div>

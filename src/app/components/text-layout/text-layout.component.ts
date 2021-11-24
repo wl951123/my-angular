@@ -1,18 +1,11 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-text-layout',
+  selector: 'festival-text-layout',
   templateUrl: './text-layout.component.html',
   styleUrls: ['./text-layout.component.css'],
 })
-export class TextLayoutComponent implements OnInit {
+export class TextLayoutComponent {
   @Input() style = {};
   @Input() layoutType: number = 1;
   @Input() texts: string[] = [];
@@ -23,6 +16,4 @@ export class TextLayoutComponent implements OnInit {
   onEdit(): void {
     this.editEvent.emit();
   }
-
-  ngOnInit(): void {}
 }

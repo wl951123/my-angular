@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ToastService } from 'ng-zorro-antd-mobile';
 
 // interface ResponseType {
 //   rtnCod: string;
@@ -19,7 +20,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class HttpService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private _toast: ToastService) {}
 
   post({ url, params }: { url: string; params: any }): Observable<any> {
     const headers = new HttpHeaders({
@@ -31,9 +32,7 @@ export class HttpService {
         if (res && res['rtnCod'] === '0000200') {
           return res['infBdy'];
         }
-        throw new Error(
-          (res.returnInfo && res.returnInfo.errorMsg) || '接口异常！'
-        );
+        this._toast.info(res?.returnInfo?.errorMsg || '网络异常！');
       })
     );
   }
@@ -48,9 +47,7 @@ export class HttpService {
         if (res && res['rtnCod'] === '0000200') {
           return res['infBdy'];
         }
-        throw new Error(
-          (res.returnInfo && res.returnInfo.errorMsg) || '接口异常！'
-        );
+        this._toast.info(res?.returnInfo?.errorMsg || '网络异常！');
       })
     );
   }

@@ -10,7 +10,7 @@ import { timer } from 'rxjs';
 import { CustomerInfo } from 'src/type/common';
 
 @Component({
-  selector: 'app-text-edit',
+  selector: 'festival-text-edit',
   templateUrl: './text-edit.component.html',
   styleUrls: ['./text-edit.component.css'],
 })

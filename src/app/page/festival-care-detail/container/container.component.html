@@ -47,13 +47,13 @@
         >
           <img [src]="sceneStyle.logoUrl" class="corpLogo" />
         </div>
-        <app-text-layout
+        <festival-text-layout
           [texts]="sceneText.text"
           [layoutType]="sceneStyle.layoutType"
           [style]="setStyle()"
           (editEvent)="onEdit()"
         >
-        </app-text-layout>
+        </festival-text-layout>
       </div>
     </section>
   </div>

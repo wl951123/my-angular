@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-header',
+  selector: 'festival-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })

@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-share',
+  selector: 'festival-share',
   templateUrl: './share.component.html',
   styleUrls: ['./share.component.css'],
 })
-export class ShareComponent implements OnInit {
+export class ShareComponent {
   @Input() isShare: boolean = false;
   @Output() onCancel = new EventEmitter();
   @Output() onShare = new EventEmitter<string>();
@@ -23,5 +23,4 @@ export class ShareComponent implements OnInit {
   stopPropagation(e: Event) {
     e.stopPropagation();
   }
-  ngOnInit(): void {}
 }

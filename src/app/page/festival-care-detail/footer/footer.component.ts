@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-footer',
+  selector: 'festival-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css'],
 })

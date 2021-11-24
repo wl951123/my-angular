@@ -17,7 +17,7 @@
                   (touchEnd)="onTouchEnd()"
                 />
                 <div class="loading" *ngIf="grid.loading">
-                  <app-loading [fontSize]="'0.06rem'"></app-loading>
+                  <Icon [type]="'loading'"></Icon>
                 </div>
                 <div class="fail" *ngIf="grid.fail">资源出错</div>
               </a>

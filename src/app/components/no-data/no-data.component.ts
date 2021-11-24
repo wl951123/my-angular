@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-no-data',
+  selector: 'festival-no-data',
   templateUrl: './no-data.component.html',
-  styleUrls: ['./no-data.component.css']
+  styleUrls: ['./no-data.component.css'],
 })
-export class NoDataComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class NoDataComponent {
+  constructor() {}
 }

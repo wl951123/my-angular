@@ -4,7 +4,7 @@ import { ShareDetail, ManagerInfo } from 'src/type/common';
 import { parse, ParsedQuery } from 'query-string';
 
 @Component({
-  selector: 'app-festival-care-preview',
+  selector: 'festival-festival-care-preview',
   templateUrl: './festival-care-preview.html',
   styleUrls: ['./festival-care-preview.css'],
 })

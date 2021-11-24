@@ -18,7 +18,7 @@ import {
   WX_DEFAULT_JSAPI_LIST,
 } from '../../../utils/constants';
 import { getEnv } from 'src/utils/common';
-import { Toast } from 'ng-zorro-antd-mobile';
+import { ToastService } from 'ng-zorro-antd-mobile';
 
 @Component({
   selector: 'app-festival-care-detail',
@@ -28,9 +28,9 @@ import { Toast } from 'ng-zorro-antd-mobile';
 export class FestivalCareDetailComponent implements OnInit {
   constructor(
     private festivalCareService: FestivalCareService,
-    public _toast: Toast
+    public _toast: ToastService
   ) {}
-  isFirstEnter: boolean = !sessionStorage.getItem('festivalCareDetailFlag');
+  isFirstEnter: boolean = !localStorage.getItem('festivalCareDetailFlag');
   detail = {} as CareDetail;
   isIphoneX: boolean = false;
   isEditing: boolean = false;
@@ -88,6 +88,10 @@ export class FestivalCareDetailComponent implements OnInit {
   // 分享
   changeShare(): void {
     if (!this.isShare) {
+      if (getEnv() !== WECHAT_ENV.qyWechat) {
+        this._toast.info('请在企业微信下使用');
+        return;
+      }
       const { isOpen, sharePic, shareDescribe, shareTitle, name } = this.detail;
       const {
         backgroundColor,
@@ -323,7 +327,7 @@ export class FestivalCareDetailComponent implements OnInit {
 
   ngOnInit(): void {
     // 用户首次进入的操作提示
-    sessionStorage.setItem('festivalCareDetailFlag', '1');
+    localStorage.setItem('festivalCareDetailFlag', '1');
     // TODO: 模拟userId, 正式上线要删掉
     sessionStorage.setItem('userId', 'wanlong');
     try {

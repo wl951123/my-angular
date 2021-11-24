@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CareDetail, SceneStyleList, SceneTextList } from 'src/type/common';
 
 @Component({
-  selector: 'app-container',
+  selector: 'festival-container',
   templateUrl: './container.component.html',
   styleUrls: ['./container.component.css'],
 })

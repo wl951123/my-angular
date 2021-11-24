@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-manager-card',
+  selector: 'festival-manager-card',
   templateUrl: './manager-card.component.html',
   styleUrls: ['./manager-card.component.css'],
 })

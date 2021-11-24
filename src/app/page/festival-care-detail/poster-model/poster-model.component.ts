@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PosterInfo } from 'src/type/common';
 
 @Component({
-  selector: 'app-poster-model',
+  selector: 'festival-poster-model',
   templateUrl: './poster-model.component.html',
   styleUrls: ['./poster-model.component.css'],
 })
