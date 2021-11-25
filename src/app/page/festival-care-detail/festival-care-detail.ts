@@ -88,10 +88,10 @@ export class FestivalCareDetailComponent implements OnInit {
   // 分享
   changeShare(): void {
     if (!this.isShare) {
-      if (getEnv() !== WECHAT_ENV.qyWechat) {
-        this._toast.info('请在企业微信下使用');
-        return;
-      }
+      // if (getEnv() !== WECHAT_ENV.qyWechat) {
+      //   this._toast.info('请在企业微信下使用');
+      //   return;
+      // }
       const { isOpen, sharePic, shareDescribe, shareTitle, name } = this.detail;
       const {
         backgroundColor,

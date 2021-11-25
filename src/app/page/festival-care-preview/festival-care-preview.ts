@@ -30,6 +30,10 @@ export class FestivalCarePreviewComponent implements OnInit {
           this.detail = val[0];
         });
         document.title = this.formatText(val[0].shareTitle);
+        this.style = {
+          color: val[0]?.fontColor,
+          fontFamily: val[0]?.fontFamily === 0 ? 'unset' : 'handwritings',
+        };
       });
   }
 
@@ -55,9 +59,5 @@ export class FestivalCarePreviewComponent implements OnInit {
     this.getManagerInfo();
     this.getShareInfo();
     this.trackPosterData();
-    this.style = {
-      color: this.detail?.fontColor,
-      fontFamily: this.detail?.fontFamily === 0 ? 'unset' : 'handwritings',
-    };
   }
 }

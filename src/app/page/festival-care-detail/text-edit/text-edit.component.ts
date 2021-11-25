@@ -104,7 +104,6 @@ export class TextEditComponent implements OnInit {
         focusIndex
       ] as HTMLTextAreaElement;
       const ind = element.selectionEnd; // 光标位置
-      // TODO: 接口获取
       const value = this.customerInfo[index].labelValue; // 需插入的值
       const text = this.textArr[focusIndex];
       const newText = text.slice(0, ind) + value + text.slice(ind); // 更新后的text
