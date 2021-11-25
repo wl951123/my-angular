@@ -13,7 +13,9 @@ export class FestivalCarePreviewComponent implements OnInit {
   managerInfo = {} as ManagerInfo;
   style = {};
   detail?: ShareDetail;
-  linkParameters: ParsedQuery<string> = parse(window.location.search);
+  linkParameters: ParsedQuery<string> = parse(
+    window.location.href.split('?')[1]
+  );
 
   getManagerInfo(): void {
     this.festivalCareService

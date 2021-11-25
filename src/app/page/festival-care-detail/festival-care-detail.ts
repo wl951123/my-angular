@@ -43,7 +43,9 @@ export class FestivalCareDetailComponent implements OnInit {
   isShare: boolean = false;
   isLoading: boolean = true;
   timerTouchStart: any = null;
-  linkParameters: ParsedQuery<string> = parse(window.location.search);
+  linkParameters: ParsedQuery<string> = parse(
+    window.location.href.split('?')[1]
+  );
   shareId: Number | string = '';
   wxSDKParams = {} as { [key: string]: string };
   style = {

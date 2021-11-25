@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'festival-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css', '../assets/css/reset.css'],
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   constructor() {
