@@ -152,9 +152,11 @@ export class FestivalCareDetailComponent implements OnInit {
     const { shareTitle, shareDescribe, sharePic } = this.detail;
     const pic = this.sceneStyle?.pic;
     const type = e === 'FORWARD' ? 'shareAppMessage' : 'shareWechatMessage';
+
     const link =
       // TODO: 须配置的链接地址
-      'http://localhost:4200/festivalCarePreview?' +
+      window.location.origin +
+      '/festivalCarePreview?' +
       stringify({
         shareId: this.shareId,
         userId: sessionStorage.getItem('userId'),
