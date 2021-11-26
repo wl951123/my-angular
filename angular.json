@@ -59,7 +59,7 @@
               "buildOptimizer": false,
               "optimization": {
                 "styles": {
-                  "minify": true,
+                  "minify": false,
                   "inlineCritical": false
                 }
               },

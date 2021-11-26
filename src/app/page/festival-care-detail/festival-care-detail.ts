@@ -244,10 +244,14 @@ export class FestivalCareDetailComponent implements OnInit {
           templateId,
         })
         .subscribe((detail) => {
-          this.detail = detail[0];
-          this.setSceneStyle(detail[0].sceneStyleList[0]);
-          this.setSceneText(detail[0].sceneStyleList[0]?.sceneTextList[0]);
-          document.title = this.detail?.name || '节点关怀';
+          if (detail[0].id) {
+            this.detail = detail[0];
+            this.setSceneStyle(detail[0].sceneStyleList[0]);
+            this.setSceneText(detail[0].sceneStyleList[0]?.sceneTextList[0]);
+            document.title = this.detail?.name || '节点关怀';
+          } else {
+            this.detail = { isOpen: false } as CareDetail;
+          }
           this._toast.hide();
           this.isLoading = false;
         });
