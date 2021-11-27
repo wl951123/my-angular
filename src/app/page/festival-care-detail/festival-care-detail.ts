@@ -90,6 +90,7 @@ export class FestivalCareDetailComponent implements OnInit {
   // 分享
   changeShare(): void {
     if (!this.isShare) {
+      // TODO: 测试时注释
       // if (getEnv() !== WECHAT_ENV.qyWechat) {
       //   this._toast.info('请在企业微信下使用');
       //   return;
@@ -244,7 +245,7 @@ export class FestivalCareDetailComponent implements OnInit {
           templateId,
         })
         .subscribe((detail) => {
-          if (detail[0].id) {
+          if (detail[0]?.id) {
             this.detail = detail[0];
             this.setSceneStyle(detail[0].sceneStyleList[0]);
             this.setSceneText(detail[0].sceneStyleList[0]?.sceneTextList[0]);
@@ -340,9 +341,7 @@ export class FestivalCareDetailComponent implements OnInit {
     sessionStorage.setItem('userId', 'wanlong');
     try {
       this.wxSDKInit();
-    } catch (error) {
-      console.log('%c  error:', 'color: #0e93e0;background: #aaefe5;', error);
-    }
+    } catch (error) {}
     this.getIsIphoneX();
     this.getManagerInfo();
     this.getDetail();

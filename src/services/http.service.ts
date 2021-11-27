@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { ToastService } from 'ng-zorro-antd-mobile';
 
 // interface ResponseType {
 //   rtnCod: string;
@@ -19,7 +20,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class HttpService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private _toast: ToastService) {}
 
   post({ url, params }: { url: string; params: any }): Observable<any> {
     const headers = new HttpHeaders({
@@ -32,7 +33,8 @@ export class HttpService {
           return res['infBdy'];
         }
         throw new Error((res && res.errorMsg) || '接口异常！');
-      })
+      }),
+      catchError(this.handleError(false))
     );
   }
 
@@ -47,7 +49,18 @@ export class HttpService {
           return res['infBdy'];
         }
         throw new Error((res && res.errorMsg) || '接口异常！');
-      })
+      }),
+      catchError(this.handleError(false))
     );
+  }
+
+  private handleError<T>(result?: T) {
+    return (error: any): Observable<T> => {
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
   }
 }

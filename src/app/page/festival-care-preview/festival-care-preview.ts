@@ -2,14 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { FestivalCareService } from 'src/services/festivalCare.service';
 import { ShareDetail, ManagerInfo } from 'src/type/common';
 import { parse, ParsedQuery } from 'query-string';
-
+import { ToastService } from 'ng-zorro-antd-mobile';
 @Component({
   selector: 'festival-festival-care-preview',
   templateUrl: './festival-care-preview.html',
   styleUrls: ['./festival-care-preview.css'],
 })
 export class FestivalCarePreviewComponent implements OnInit {
-  constructor(private festivalCareService: FestivalCareService) {}
+  constructor(
+    private festivalCareService: FestivalCareService,
+    public _toast: ToastService
+  ) {}
   managerInfo = {} as ManagerInfo;
   style = {};
   detail?: ShareDetail;
@@ -27,15 +30,20 @@ export class FestivalCarePreviewComponent implements OnInit {
     this.festivalCareService
       .getShareInfo({ shareId: this.linkParameters['shareId'] })
       .subscribe((val: ShareDetail[]) => {
-        val[0].texts.forEach((item: string, index: number) => {
-          val[0].texts[index] = this.formatText(item);
-          this.detail = val[0];
-        });
-        document.title = this.formatText(val[0].shareTitle);
-        this.style = {
-          color: val[0]?.fontColor,
-          fontFamily: val[0]?.fontFamily === 0 ? 'unset' : 'handwritings',
-        };
+        const data = val[0];
+        if (data?.id) {
+          data.texts?.forEach((item: string, index: number) => {
+            data.texts[index] = this.formatText(item);
+          });
+          this.detail = data;
+          document.title = this.formatText(data.shareTitle);
+          this.style = {
+            color: data?.fontColor,
+            fontFamily: data?.fontFamily === 0 ? 'unset' : 'handwritings',
+          };
+        } else {
+          this._toast.fail('分享不存在');
+        }
       });
   }
 
@@ -57,6 +65,7 @@ export class FestivalCarePreviewComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    // TODO: 模拟客户unionId获取
     sessionStorage.setItem('unionId', 'hhhhh');
     this.getManagerInfo();
     this.getShareInfo();
