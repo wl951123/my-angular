@@ -89,6 +89,9 @@
   line-height: 0;
   overflow: hidden;
 }
+.container .content .section2 .contentShortWrap {
+  height: calc(6.9 / 7.5 * 8rem);
+}
 .container .content .section2 .contentWrap .logoWrap {
   display: flex;
   justify-content: flex-start;

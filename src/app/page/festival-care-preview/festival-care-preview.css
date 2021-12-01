@@ -9,6 +9,9 @@
   line-height: 0;
   overflow: hidden;
 }
+.festival-care-preview .posterShortWrap {
+  height: 8rem;
+}
 .festival-care-preview .posterWrap .poster {
   width: 100%;
 }

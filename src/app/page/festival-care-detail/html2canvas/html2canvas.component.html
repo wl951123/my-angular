@@ -2,6 +2,7 @@
   <div class="main-canvas" id="poster-canvas" [style.width]="width + 'px'">
     <div
       class="posterWrap"
+      [class]="sceneStyle.layoutType === 4 ? 'posterShortWrap' : ''"
       [style.backgroundColor]="sceneStyle.backgroundColor"
     >
       <img class="poster" [src]="sceneStyle.pic" />

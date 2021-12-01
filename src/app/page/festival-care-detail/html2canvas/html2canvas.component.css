@@ -14,6 +14,9 @@
   height: 14.2rem;
   overflow: hidden;
 }
+.main .main-canvas .posterShortWrap {
+  height: 8rem;
+}
 .main .main-canvas .posterWrap .poster {
   width: 100%;
 }

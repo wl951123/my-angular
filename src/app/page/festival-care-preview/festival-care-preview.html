@@ -3,7 +3,10 @@
   [style.backgroundColor]="detail.backgroundColor"
   *ngIf="detail"
 >
-  <div class="posterWrap">
+  <div
+    class="posterWrap"
+    [class]="detail.layoutType === 4 ? 'posterShortWrap' : ''"
+  >
     <img class="poster" [src]="detail.pic" alt="" />
     <div
       class="logoWrap"
