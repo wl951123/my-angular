@@ -4,7 +4,7 @@
       <div class="cancel" (click)="cancel()">取 消</div>
       <div class="save" (click)="save()">确 定</div>
     </div>
-    <div class="customer-info">
+    <div class="customer-info" *ngIf="customerInfo.length">
       <div class="title">插入客户数据：</div>
       <div class="info-btn">
         <div

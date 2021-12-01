@@ -32,7 +32,6 @@ export class HttpService {
         if (res && res['rtnCod'] === '0000200') {
           return res['infBdy'];
         }
-        throw new Error((res && res.errorMsg) || '接口异常！');
       }),
       catchError(this.handleError(false))
     );
@@ -48,7 +47,6 @@ export class HttpService {
         if (res && res['rtnCod'] === '0000200') {
           return res['infBdy'];
         }
-        throw new Error((res && res.errorMsg) || '接口异常！');
       }),
       catchError(this.handleError(false))
     );
@@ -56,7 +54,6 @@ export class HttpService {
 
   private handleError<T>(result?: T) {
     return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
 
       // Let the app keep running by returning an empty result.

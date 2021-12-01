@@ -3,6 +3,7 @@ import { FestivalCareService } from 'src/services/festivalCare.service';
 import { ShareDetail, ManagerInfo } from 'src/type/common';
 import { parse, ParsedQuery } from 'query-string';
 import { ToastService } from 'ng-zorro-antd-mobile';
+import { POINT_TYPE } from 'src/utils/constants';
 @Component({
   selector: 'festival-festival-care-preview',
   templateUrl: './festival-care-preview.html',
@@ -23,7 +24,10 @@ export class FestivalCarePreviewComponent implements OnInit {
   getManagerInfo(): void {
     this.festivalCareService
       .getManagerInfo({ userId: this.linkParameters['userId'] })
-      .subscribe((val) => (this.managerInfo = val[0]));
+      .subscribe((val) => {
+        this.getShareInfo();
+        this.managerInfo = val[0];
+      });
   }
 
   getShareInfo(): void {
@@ -50,25 +54,34 @@ export class FestivalCarePreviewComponent implements OnInit {
   // 经理名，机构名文本替换
   formatText = (text = '') => {
     const { name = '', corpName = '' } = this.managerInfo;
-    return text.replace(/\$name\$/g, name).replace(/\$corp\$/g, corpName);
+    return text
+      .replace(/\$name\$/g, name)
+      .replace(/\$corp\$/g, corpName)
+      .replace(/\$c_name\$/g, '客户');
   };
 
   // 埋点
   trackPosterData(): void {
+    // TODO: unionId openId的获取来源需更改
     const params = {
       userId: this.linkParameters['userId'],
       unionId: sessionStorage.getItem('unionId'),
-      time: new Date().getTime(),
+      openId: sessionStorage.getItem('openId'),
+      shareId: this.linkParameters['shareId'],
+      actType: POINT_TYPE['ACT_TYPE']['OPEN'],
       typeId: this.linkParameters['typeId'],
       busId: this.linkParameters['busId'],
+      shareType: POINT_TYPE['SHARE_TYPE']['LINK'],
+      source: POINT_TYPE['SOURCE']['CUSTOMER'],
     };
+    this.festivalCareService.sendBuried(params).subscribe(() => {});
   }
 
   async ngOnInit(): Promise<void> {
     // TODO: 模拟客户unionId获取
     sessionStorage.setItem('unionId', 'hhhhh');
+    sessionStorage.setItem('openId', 'lllll');
     this.getManagerInfo();
-    this.getShareInfo();
     this.trackPosterData();
   }
 }

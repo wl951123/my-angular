@@ -29,6 +29,9 @@ export class FestivalCareService {
   // 根据id获取分享详情
   private shareInfo = 'api/careScene/shareInfo';
 
+  // 埋点
+  private buried = 'api/careScene/buried';
+
   getDetail(params: any): Observable<CareDetail[]> {
     return this.httpService.get({ url: this.festivalCareDetail, params });
   }
@@ -47,5 +50,9 @@ export class FestivalCareService {
 
   getShareInfo(params: any): Observable<ShareDetail[]> {
     return this.httpService.get({ url: this.shareInfo, params });
+  }
+
+  sendBuried(params: any): Observable<any> {
+    return this.httpService.post({ url: this.buried, params });
   }
 }

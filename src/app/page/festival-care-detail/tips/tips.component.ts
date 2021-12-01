@@ -13,7 +13,5 @@ export class TipsComponent implements OnInit {
   onCloseMask(): void {
     this.onCancel.emit();
   }
-  ngOnInit(): void {
-    sessionStorage.setItem('festivalCareDetailFlag', '1');
-  }
+  ngOnInit(): void {}
 }

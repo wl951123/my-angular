@@ -13,8 +13,8 @@
                 <img
                   *ngIf="grid.url"
                   [src]="grid.url"
-                  (touchStart)="onTouchStart()"
-                  (touchEnd)="onTouchEnd()"
+                  (touchstart)="onTouchStart()"
+                  (touchend)="onTouchEnd()"
                 />
                 <div class="loading" *ngIf="grid.loading">
                   <Icon [type]="'loading'"></Icon>

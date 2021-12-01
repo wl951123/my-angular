@@ -75,7 +75,7 @@ export class TextEditComponent implements OnInit {
       el.value = this.textArr[index];
       return false;
     }
-    // 行数不超限则赋值文案文案
+    // 行数不超限则赋值文案
     this.isLimit[index] = false;
     this.textArr[index] = content || value;
     return true;
@@ -104,7 +104,8 @@ export class TextEditComponent implements OnInit {
         focusIndex
       ] as HTMLTextAreaElement;
       const ind = element.selectionEnd; // 光标位置
-      const value = this.customerInfo[index].labelValue; // 需插入的值
+      const value =
+        this.customerInfo[index].labelValue || this.customerInfo[index].labelNm; // 需插入的值
       const text = this.textArr[focusIndex];
       const newText = text.slice(0, ind) + value + text.slice(ind); // 更新后的text
       this.checkContent(element, newText, focusIndex).then((res) => {

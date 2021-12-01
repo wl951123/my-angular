@@ -91,10 +91,10 @@ export class FestivalCareDetailComponent implements OnInit {
   changeShare(): void {
     if (!this.isShare) {
       // TODO: 测试时注释
-      // if (getEnv() !== WECHAT_ENV.qyWechat) {
-      //   this._toast.info('请在企业微信下使用');
-      //   return;
-      // }
+      if (getEnv() !== WECHAT_ENV.qyWechat) {
+        this._toast.info('请在企业微信下使用');
+        return;
+      }
       const { isOpen, sharePic, shareDescribe, shareTitle, name } = this.detail;
       const {
         backgroundColor,
@@ -138,14 +138,12 @@ export class FestivalCareDetailComponent implements OnInit {
 
   // 长按图片0.4秒后调用埋点
   touchStart = () => {
-    console.log('start');
     this.timerTouchStart = setTimeout(() => {
-      this.trackPosterData('POSTER_SHARE');
+      this.trackPosterData('POSTER');
     }, 400);
   };
 
   touchEnd = () => {
-    console.log('end');
     clearTimeout(this.timerTouchStart);
   };
 
@@ -153,6 +151,8 @@ export class FestivalCareDetailComponent implements OnInit {
     const { shareTitle, shareDescribe, sharePic } = this.detail;
     const pic = this.sceneStyle?.pic;
     const type = e === 'FORWARD' ? 'shareAppMessage' : 'shareWechatMessage';
+    // TODO: 测试埋点接口 上线前删除
+    // this.trackPosterData('LINK', e);
 
     const link =
       // TODO: 须配置的链接地址
@@ -178,24 +178,27 @@ export class FestivalCareDetailComponent implements OnInit {
           console.log(`wx.invoke ${type} ===>`, res);
           if (res.err_msg === `${type}:ok`) {
             // 分享成功埋点
-            this.trackPosterData(e);
+            this.trackPosterData('LINK', e);
           }
         }
       );
   };
 
   // 埋点
-  trackPosterData(type: string): void {
-    // 经理userid、时间、链接/图片、分享渠道（选链接时）、typeid、busId
-    const params = {
+  trackPosterData(shareType: string, channel: string = ''): void {
+    // TODO: userId的获取来源问题
+    const params: any = {
       userId: sessionStorage.getItem('userId') || '',
-      time: new Date().getTime(),
-      link: window.location.href,
-      shareChannel: POINT_TYPE['SHARE_CHANNEL'][type] || '',
+      shareType: POINT_TYPE['SHARE_TYPE'][shareType],
+      actType: POINT_TYPE['ACT_TYPE']['SEND'],
       typeId: this.linkParameters['typeId'],
       busId: this.linkParameters['busId'],
+      shareId: this.shareId,
+      channel: POINT_TYPE['SHARE_CHANNEL'][channel] || '',
+      source: POINT_TYPE['SOURCE']['STAFF'],
     };
     // TODO: 调用埋点接口
+    this.festivalCareService.sendBuried(params).subscribe(() => {});
   }
 
   // 分享海报
@@ -232,7 +235,10 @@ export class FestivalCareDetailComponent implements OnInit {
   // 经理名，机构名文本替换
   formatText = (text = '') => {
     const { name = '', corpName = '' } = this.managerInfo;
-    return text.replace(/\$name\$/g, name).replace(/\$corp\$/g, corpName);
+    return text
+      .replace(/\$name\$/g, name)
+      .replace(/\$corp\$/g, corpName)
+      .replace(/\$c_name\$/g, '客户');
   };
 
   // 获取节点关怀详情
@@ -267,7 +273,10 @@ export class FestivalCareDetailComponent implements OnInit {
   getManagerInfo(): void {
     this.festivalCareService
       .getManagerInfo({ userId: sessionStorage.getItem('userId') })
-      .subscribe((val) => (this.managerInfo = val[0]));
+      .subscribe((val) => {
+        this.managerInfo = val[0];
+        this.getDetail();
+      });
   }
 
   // 获取用户标签信息
@@ -282,9 +291,6 @@ export class FestivalCareDetailComponent implements OnInit {
 
   /**
    *微信JS-SDK 初始化
-   *
-   * @param {IStrValObjProps} wxSDKParams 全局微信JS-SDK授权参数
-   * @memberof HomePage
    */
   wxSDKInit() {
     // 只有在企业微信下,才进行微信JS-SDK鉴权
@@ -344,7 +350,6 @@ export class FestivalCareDetailComponent implements OnInit {
     } catch (error) {}
     this.getIsIphoneX();
     this.getManagerInfo();
-    this.getDetail();
     this.getCustomerInfo();
   }
 }
