@@ -1,10 +1,7 @@
-<div
-  class="festival-care-preview"
-  [style.backgroundColor]="detail.backgroundColor"
-  *ngIf="detail"
->
+<div class="festival-care-preview" *ngIf="detail">
   <div
     class="posterWrap"
+    [style.backgroundColor]="detail.backgroundColor"
     [class]="detail.layoutType === 4 ? 'posterShortWrap' : ''"
   >
     <img class="poster" [src]="detail.pic" alt="" />

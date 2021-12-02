@@ -22,7 +22,7 @@ export class TextEditComponent implements OnInit {
   @Output() onCancel = new EventEmitter();
   @Output() onSave = new EventEmitter<string[]>();
 
-  limit: Array<Array<number>> = [[22], [11, 11], [3, 12, 3], [22]]; // 文字限定行数
+  limit: Array<Array<number>> = [[22], [11, 11], [3, 12, 3], [13]]; // 文字限定行数
   isLimit: Array<boolean> = [false, false, false]; // 是否超出限制
   textArr: string[] = []; // 文案
   focusIndex: number = -1;
@@ -138,7 +138,10 @@ export class TextEditComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     const { texts, customerInfo } = changes;
     if (texts) {
-      this.textArr = [...texts.currentValue];
+      this.textArr = [...texts.currentValue].slice(
+        0,
+        this.limit[this.layoutType - 1]?.length
+      );
       timer(0).subscribe(() => {
         this.getHeight();
       });
